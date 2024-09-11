@@ -32,7 +32,7 @@ def read_temp(device_file):
         return temp_c
 
 def write_to_csv(header, data):
-    with open('temperature_readings.csv', mode='a', newline='') as file:
+    with open('/home/pi/Sherlock/data/Thermal/temperature_readings.csv', mode='a', newline='') as file:
         writer = csv.writer(file)
         if header:
             writer.writerow(header)

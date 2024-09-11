@@ -12,7 +12,7 @@ SOC_UUID = "XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX"
 SOH_UUID = "XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX"
 
 # Path to the CSV file
-CSV_FILE_PATH = "battery_data.csv"
+CSV_FILE_PATH = "/home/pi/Sherlock/data/Battery/battery_data.csv"
 
 async def monitor_battery():
     async with BleakClient(BATTERY_MAC) as client:
