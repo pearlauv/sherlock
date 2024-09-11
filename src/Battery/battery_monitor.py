@@ -34,7 +34,7 @@ async def monitor_battery():
                 # Get the current date and time
                 current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
-                # Print to console (optional)
+                # Print to console
                 print(f"{current_time} - SOC: {soc}%, SOH: {soh}%")
 
                 # Append data to the CSV file with timestamp
