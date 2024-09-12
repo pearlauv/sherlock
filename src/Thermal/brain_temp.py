@@ -32,11 +32,13 @@ def read_temp(device_file):
         return temp_c
 
 def write_to_csv(header, data):
-    with open('/home/pi/Sherlock/data/Thermal/temperature_readings.csv', mode='a', newline='') as file:
+    file_path = '/home/pi/Sherlock/data/Thermal/temperature_readings.csv'
+    with open(file_path, mode='a', newline='') as file:
         writer = csv.writer(file)
-        if header:
+        if header and not os.path.getsize(file_path):
             writer.writerow(header)
-        writer.writerow(data)
+        if data is not None:
+            writer.writerow(data)
 
 # Detect all sensors and create CSV header
 device_folders = find_sensors()
@@ -51,7 +53,7 @@ for serial in device_serials:
 csv_header = ['Timestamp'] + device_serials
 
 # Write header to CSV if file doesn't exist
-if not os.path.isfile('temperature_readings.csv'):
+if not os.path.isfile('/home/pi/Sherlock/data/Thermal/temperature_readings.csv'):
     write_to_csv(csv_header, None)
 
 try:
@@ -78,4 +80,4 @@ try:
         time.sleep(900)
 
 except KeyboardInterrupt:
-    print("\nScript interrupted by user. Exiting...")
+    print("\nProgram stopped by user.")
