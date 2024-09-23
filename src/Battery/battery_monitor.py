@@ -5,7 +5,7 @@ from bleak import BleakClient
 from datetime import datetime
 
 # Replace with CMPower battery's MAC address
-BATTERY_MAC = "<MAC address>"
+BATTERY_MAC = "31:38:05:00:4D:7F" 
 
 # Replace with correct UUIDs for SOC and SOH from CMPower
 SOC_UUID = "XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX"
