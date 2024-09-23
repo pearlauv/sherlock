@@ -5,7 +5,11 @@ from datetime import datetime
 import logging
 
 # Set up logging
+<<<<<<< HEAD
 logging.basicConfig(filename='/home/pi/Sherlock/data/PwrMgmt/relay_lights.log', level=logging.INFO, 
+=======
+logging.basicConfig(filename='/home/pi/Sherlock/data/PwrMgmt/relay_control.log', level=logging.INFO, 
+>>>>>>> b9b4f017998081a666be76460e3d531ce2d658c3
                     format='%(asctime)s - %(message)s', datefmt='%Y-%m-%d %H:%M:%S')
 
 # Set the GPIO mode to BCM
@@ -19,22 +23,38 @@ GPIO.setup(RELAY_PIN, GPIO.OUT)
 
 def turn_on():
     GPIO.output(RELAY_PIN, GPIO.HIGH)
+<<<<<<< HEAD
     logging.info("Light Relay turned ON")
 
 def turn_off():
     GPIO.output(RELAY_PIN, GPIO.LOW)
     logging.info("Light Relay turned OFF")
+=======
+    logging.info("Night Relay turned ON")
+
+def turn_off():
+    GPIO.output(RELAY_PIN, GPIO.LOW)
+    logging.info("Night Relay turned OFF")
+>>>>>>> b9b4f017998081a666be76460e3d531ce2d658c3
 
 def cleanup():
     GPIO.cleanup()
     logging.info("GPIO cleanup complete")
 
 # Schedule the relay operations
+<<<<<<< HEAD
 schedule.every().day.at("14:15").do(turn_on)  # 6 PM
 schedule.every().day.at("15:00").do(turn_off)  # 7 AM
 
 try:
     logging.info("Light Relay control script is running.")
+=======
+schedule.every().day.at("18:00").do(turn_on)  # 6 PM
+schedule.every().day.at("07:00").do(turn_off)  # 7 AM
+
+try:
+    logging.info("Night Relay control script is running.")
+>>>>>>> b9b4f017998081a666be76460e3d531ce2d658c3
     while True:
         schedule.run_pending()
         time.sleep(1)
@@ -43,4 +63,8 @@ except Exception as e:
     logging.error(f"An error occurred: {str(e)}")
 
 finally:
+<<<<<<< HEAD
     cleanup()
+=======
+    cleanup()
+>>>>>>> b9b4f017998081a666be76460e3d531ce2d658c3

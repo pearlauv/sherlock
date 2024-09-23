@@ -1,0 +1,15 @@
+[Unit]
+Description=Night Relay Control Service
+After=multi-user.target
+
+[Service]
+ExecStart=/usr/bin/python3 /home/pi/Sherlock/src/PwrMgmt/relay_lights.py
+WorkingDirectory=/home/pi/Sherlock/src/PwrMgmt
+StandardOutput=inherit
+StandardError=inherit
+Restart=always
+User=pi
+
+[Install]
+WantedBy=multi-user.target
+
