@@ -2,7 +2,7 @@ import os
 import glob
 import time
 import csv
-from datetime import datetime
+from datetime import datetime, timedelta
 
 # Load 1-Wire kernel modules
 os.system('modprobe w1-gpio')
@@ -12,7 +12,6 @@ os.system('modprobe w1-therm')
 base_dir = '/sys/bus/w1/devices/'
 
 def find_sensors():
-    # Find all sensor folders
     return glob.glob(base_dir + '28*')
 
 def read_temp_raw(device_file):
@@ -44,11 +43,6 @@ def write_to_csv(header, data):
 device_folders = find_sensors()
 device_serials = [os.path.basename(device_folder) for device_folder in device_folders]
 
-# Print sensor serial numbers
-print("Detected Sensors:")
-for serial in device_serials:
-    print(serial)
-
 # Create CSV header with serial numbers
 csv_header = ['Timestamp'] + device_serials
 
@@ -57,27 +51,34 @@ if not os.path.isfile('/home/pi/Sherlock/data/Thermal/temperature_readings.csv')
     write_to_csv(csv_header, None)
 
 try:
-    # Main loop to read temperature from all sensors and write to CSV
+    print("Starting data logging. Press Ctrl+C to stop.")
+
     while True:
-        device_folders = find_sensors()
-        timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        # Get current datetime
+        current_datetime = datetime.now()
+        timestamp = current_datetime.strftime('%Y-%m-%d %H:%M:%S')
         temperatures = [timestamp]
 
+        # Read temperature from each sensor
         for device_folder in device_folders:
             device_file = device_folder + '/w1_slave'
             temp_c = read_temp(device_file)
             temperatures.append(temp_c)
-        
+
         # Print the current temperatures along with serial numbers
         print(f"\nTemperatures at {timestamp}:")
         for serial, temp in zip(device_serials, temperatures[1:]):
             print(f"{serial}: {temp}°C")
-        
+
         # Write data to CSV file
         write_to_csv(None, temperatures)
-        
-        # Wait 15 minutes (900 seconds) before the next reading
-        time.sleep(900)
+
+        # Calculate time until the next 15-minute mark
+        next_time = (current_datetime + timedelta(minutes=15)).replace(second=0, microsecond=0)
+        sleep_duration = (next_time - datetime.now()).total_seconds()
+
+        if sleep_duration > 0:
+            time.sleep(sleep_duration)
 
 except KeyboardInterrupt:
     print("\nProgram stopped by user.")
