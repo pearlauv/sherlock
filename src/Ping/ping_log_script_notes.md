@@ -54,6 +54,14 @@ The script enters an infinite `while` loop, which allows it to continuously exec
 
 - **Stopping the Script**: If you need to stop the script, reattach to the screen session and press `Ctrl + C`.
 
+- **Terminating a Screen Session**:
+  1. Reattach to the desired session using the above method.
+  2. Once attached, you can terminate the session by typing:
+     ```bash
+     exit
+     ```
+     or simply by closing the script with `Ctrl + C` before exiting.
+
 ### Important Considerations
 - **Permissions**: Ensure the script has the necessary permissions to write to the specified log file.
   
