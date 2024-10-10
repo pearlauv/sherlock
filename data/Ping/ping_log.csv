@@ -2,3 +2,33 @@ Mon 23 Sep 15:55:36 EDT 2024: 64 bytes from 8.8.8.8: icmp_seq=1 ttl=114 time=11.
 Mon 23 Sep 15:56:06 EDT 2024: 64 bytes from 8.8.8.8: icmp_seq=1 ttl=114 time=12.5 ms
 Mon 23 Sep 15:56:36 EDT 2024: 64 bytes from 8.8.8.8: icmp_seq=1 ttl=114 time=9.92 ms
 Mon 23 Sep 15:57:06 EDT 2024: 64 bytes from 8.8.8.8: icmp_seq=1 ttl=114 time=13.7 ms
+Fri 27 Sep 05:09:07 EDT 2024: 64 bytes from 8.8.8.8: icmp_seq=1 ttl=115 time=26.7 ms
+Fri 27 Sep 22:39:52 EDT 2024: Google       64 bytes from 8.8.8.8: icmp_seq=1 ttl=115 time=15.9 ms
+Fri 27 Sep 22:39:52 EDT 2024: Oyster       64 bytes from 10.49.0.2: icmp_seq=1 ttl=63 time=99.2 ms
+Fri 27 Sep 22:39:52 EDT 2024: NavPi        64 bytes from 10.49.0.4: icmp_seq=1 ttl=63 time=16.9 ms
+Fri 27 Sep 22:39:52 EDT 2024: PantherPi    64 bytes from 10.49.0.9: icmp_seq=1 ttl=63 time=271 ms
+Fri 27 Sep 22:40:22 EDT 2024: Google       64 bytes from 8.8.8.8: icmp_seq=1 ttl=115 time=18.7 ms
+Fri 27 Sep 22:40:22 EDT 2024: Oyster       64 bytes from 10.49.0.2: icmp_seq=1 ttl=63 time=74.2 ms
+Fri 27 Sep 22:40:23 EDT 2024: NavPi        64 bytes from 10.49.0.4: icmp_seq=1 ttl=63 time=304 ms
+Fri 27 Sep 22:40:23 EDT 2024: PantherPi    64 bytes from 10.49.0.9: icmp_seq=1 ttl=63 time=302 ms
+Fri 27 Sep 22:40:53 EDT 2024: Google       64 bytes from 8.8.8.8: icmp_seq=1 ttl=115 time=19.6 ms
+Fri 27 Sep 22:40:53 EDT 2024: Oyster       64 bytes from 10.49.0.2: icmp_seq=1 ttl=63 time=63.2 ms
+Fri 27 Sep 22:40:53 EDT 2024: NavPi        64 bytes from 10.49.0.4: icmp_seq=1 ttl=63 time=299 ms
+Fri 27 Sep 22:40:54 EDT 2024: PantherPi    64 bytes from 10.49.0.9: icmp_seq=1 ttl=63 time=16.9 ms
+Sun 29 Sep 23:48:59 EDT 2024: Google       64 bytes from 8.8.8.8: icmp_seq=1 ttl=115 time=14.4 ms
+Sun 29 Sep 23:48:59 EDT 2024: ServerPi     64 bytes from 10.49.0.1: icmp_seq=1 ttl=64 time=10.0 ms
+Sun 29 Sep 23:48:59 EDT 2024: Oyster       
+Sun 29 Sep 23:49:09 EDT 2024: NavPi        64 bytes from 10.49.0.4: icmp_seq=1 ttl=63 time=164 ms
+Sun 29 Sep 23:49:10 EDT 2024: PantherPi    
+Sun 29 Sep 23:51:40 EDT 2024: Google       64 bytes from 8.8.8.8: icmp_seq=1 ttl=115 time=14.8 ms
+Sun 29 Sep 23:51:40 EDT 2024: ServerPi     64 bytes from 10.49.0.1: icmp_seq=1 ttl=64 time=8.18 ms
+Sun 29 Sep 23:52:28 EDT 2024: Google       64 bytes from 8.8.8.8: icmp_seq=1 ttl=115 time=14.5 ms
+Sun 29 Sep 23:52:28 EDT 2024: ServerPi     64 bytes from 10.49.0.1: icmp_seq=1 ttl=64 time=11.0 ms
+Sun 29 Sep 23:52:28 EDT 2024: Oyster       
+Sun 29 Sep 23:52:38 EDT 2024: NavPi        
+Sun 29 Sep 23:52:48 EDT 2024: PantherPi    64 bytes from 10.49.0.9: icmp_seq=1 ttl=63 time=247 ms
+Sun 29 Sep 23:54:43 EDT 2024: Google       64 bytes from 8.8.8.8: icmp_seq=1 ttl=115 time=16.0 ms
+Sun 29 Sep 23:54:43 EDT 2024: ServerPi     64 bytes from 10.49.0.1: icmp_seq=1 ttl=64 time=9.99 ms
+Sun 29 Sep 23:54:43 EDT 2024: Oyster       
+Sun 29 Sep 23:54:53 EDT 2024: NavPi        64 bytes from 10.49.0.4: icmp_seq=1 ttl=63 time=226 ms
+Sun 29 Sep 23:54:53 EDT 2024: PantherPi    64 bytes from 10.49.0.9: icmp_seq=1 ttl=63 time=305 ms
