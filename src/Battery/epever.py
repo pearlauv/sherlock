@@ -12,28 +12,21 @@ CSV_FILE = 'solar_data.csv'    # Output CSV file
 # Function to read solar data
 def read_solar_data():
     try:
-        with serial.Serial(SERIAL_PORT, BAUD_RATE, timeout=TIMEOUT) as 
-ser:
-            # Send command to request SoC, SoH, and power output for PV1 
-and PV2
-            command = b'\x01\x03\x00\x00\x00\x05\xC5\xCD'  # Example 
-command (modify as needed)
+        with serial.Serial(SERIAL_PORT, BAUD_RATE, timeout=TIMEOUT) as ser:
+            # Send command to request SoC, SoH, and power output for PV1 and PV2
+            command = b'\x01\x03\x00\x00\x00\x05\xC5\xCD'  # Example command (modify as needed)
             ser.write(command)
 
             # Wait for a response
             time.sleep(1)
-            response = ser.read(11)  # Adjust based on expected response 
-length
+            response = ser.read(11)  # Adjust based on expected response length
 
             if response:
-                # Parse the response (modify as per your device's 
-protocol)
+                # Parse the response (modify as per your device's protocol)
                 soc = response[3]        # Example parsing for SoC
                 soh = response[4]        # Example parsing for SoH
-                power_output_pv1 = int.from_bytes(response[5:7], 
-byteorder='big')  # PV1 power output
-                power_output_pv2 = int.from_bytes(response[7:9], 
-byteorder='big')  # PV2 power output
+                power_output_pv1 = int.from_bytes(response[5:7], byteorder='big')  # PV1 power output
+                power_output_pv2 = int.from_bytes(response[7:9], byteorder='big')  # PV2 power output
 
                 return soc, soh, power_output_pv1, power_output_pv2
             else:
@@ -58,10 +51,8 @@ if __name__ == "__main__":
         if data:
             soc, soh, power_output_pv1, power_output_pv2 = data
             timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-            append_to_csv([(timestamp, soc, soh, power_output_pv1, 
-power_output_pv2)])
-            print(f'Time: {timestamp}, SoC: {soc}%, SoH: {soh}%, Power 
-Output PV1: {power_output_pv1} W, Power Output PV2: {power_output_pv2} W')
+            append_to_csv([(timestamp, soc, soh, power_output_pv1, power_output_pv2)])
+            print(f'Time: {timestamp}, SoC: {soc}%, SoH: {soh}%, Power Output PV1: {power_output_pv1} W, Power Output PV2: {power_output_pv2} W')
         
         time.sleep(10)  # Adjust the sleep interval as needed
 
