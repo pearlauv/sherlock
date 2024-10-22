@@ -4,7 +4,7 @@ import pandas as pd
 from datetime import datetime
 
 # Configuration
-SERIAL_PORT = '/dev/ttyUSB0'  # Change this to your serial port
+SERIAL_PORT = '/dev/ttyACM0'  # Change this to your serial port
 BAUD_RATE = 9600               # Adjust if necessary
 TIMEOUT = 1                    # Timeout for serial read
 CSV_FILE = 'solar_data.csv'    # Output CSV file
