@@ -15,7 +15,7 @@ logging.basicConfig(
 GPIO.setmode(GPIO.BCM)
 
 # Define the GPIO pin connected to the relay
-RELAY_PIN = 25  # Using GPIO 25 for this relay
+RELAY_PIN = 27  # Using GPIO 25 for this relay
 
 # Setup the GPIO pin as an output
 GPIO.setup(RELAY_PIN, GPIO.OUT)
