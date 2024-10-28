@@ -5,7 +5,7 @@ import logging
 
 # Set up logging
 logging.basicConfig(
-    filename='/home/pi/Sherlock/data/PwrMgmt/relay_lights.log',
+    filename='/home/pi/sherlock/data/PwrMgmt/relay_lights.log',
     level=logging.INFO,
     format='%(asctime)s - %(message)s',
     datefmt='%Y-%m-%d %H:%M:%S'

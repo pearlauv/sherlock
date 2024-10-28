@@ -31,7 +31,7 @@ def read_temp(device_file):
         return temp_c
 
 def write_to_csv(header, data):
-    file_path = '/home/pi/Sherlock/data/Thermal/temperature_readings.csv'
+    file_path = '/home/pi/sherlock/data/Thermal/temperature_readings.csv'
     with open(file_path, mode='a', newline='') as file:
         writer = csv.writer(file)
         if header and not os.path.getsize(file_path):
@@ -47,7 +47,7 @@ device_serials = [os.path.basename(device_folder) for device_folder in device_fo
 csv_header = ['Timestamp'] + device_serials
 
 # Write header to CSV if file doesn't exist
-if not os.path.isfile('/home/pi/Sherlock/data/Thermal/temperature_readings.csv'):
+if not os.path.isfile('/home/pi/sherlock/data/Thermal/temperature_readings.csv'):
     write_to_csv(csv_header, None)
 
 try:
