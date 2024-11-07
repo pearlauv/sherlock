@@ -19,7 +19,7 @@ This document outlines how to control a relay connected to a Raspberry Pi for ma
 
 2. **GPIO Setup**:
    - The GPIO mode is set to BCM.
-   - The relay is connected to GPIO pin 23, configured as an output.
+   - The relay is connected to GPIO pin 25, configured as an output.
 
 3. **Relay Control Functions**:
    - `turn_on()`: Activates the relay and logs the action.
