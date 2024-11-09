@@ -2,17 +2,34 @@ import serial
 import time
 import csv
 from datetime import datetime
+import minimalmodbus
+
+# Initialize minimalmodbus sensor
+mb_address = 1  # Default modbus address of the sensor from datasheet
+turbSensor = minimalmodbus.Instrument('/dev/tty', mb_address, debug=False)
+
+# Configure minimalmodbus sensor properties
+turbSensor.serial.baudrate = 9600
+turbSensor.serial.bytesize = 8
+turbSensor.serial.parity = minimalmodbus.serial.PARITY_NONE
+turbSensor.serial.stopbits = 1
+turbSensor.serial.timeout = 0.5
+turbSensor.mode = minimalmodbus.MODE_RTU
+minimalmodbus.BYTEORDER_LITTLE_SWAP = 3
+turbSensor.clear_buffers_before_each_transaction = True
+turbSensor.close_port_after_each_call = True
+
 
 # USB Serial Communication
-SERIAL_PORT = '/dev/ttyUSB'
-BAUD_RATE = 9600  # Adjust to your device's settings
+#SERIAL_PORT = '/dev/tty'
+#BAUD_RATE = 115200  # Adjust to your device's settings
 
 #Data File
 CSV_FILE = '/home/pi/Sherlock/data/Battery/battery_data.csv'
 
 def read_data():
     try:
-        with serial.Serial(SERIAL_PORT, BAUD_RATE, timeout=1) as ser:
+        with serial.Serial(turbSensor, timeout=1) as ser:
             # Request State of Charge (SOC)
             command_soc = b'\x01\x03\x00\x00\x00\x02\xC4\x0B'  # Replace with actual SOC command
             ser.write(command_soc)
