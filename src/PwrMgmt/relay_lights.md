@@ -14,7 +14,7 @@ This document outlines how to control a relay connected to a Raspberry Pi using 
 ### Key Components
 
 1. **Logging Setup**: 
-   - Logs are stored at `/home/pi/Sherlock/data/PwrMgmt/relay_lights.log`.
+   - Logs are stored at `data/PwrMgmt/relay_lights.log` under the Sherlock repo checkout.
    - Log entries include timestamps and messages.
 
 2. **GPIO Setup**:
@@ -49,7 +49,7 @@ sudo apt-get install python3 python3-rpi.gpio python3-schedule
 You can run the script directly from the terminal with:
 
 ```bash
-python3 /home/pi/Sherlock/src/PwrMgmt/relay_lights.py
+python3 /home/sherlock/sherlock/src/PwrMgmt/relay_lights.py
 ```
 
 ### Setting Up as a Service
@@ -74,12 +74,12 @@ To run the script as a service, follow these steps:
    After=multi-user.target
 
    [Service]
-   ExecStart=/usr/bin/python3 /home/pi/Sherlock/src/PwrMgmt/relay_lights.py
-   WorkingDirectory=/home/pi/Sherlock/src/PwrMgmt
+   ExecStart=/usr/bin/python3 /home/sherlock/sherlock/src/PwrMgmt/relay_lights.py
+   WorkingDirectory=/home/sherlock/sherlock/src/PwrMgmt
    StandardOutput=inherit
    StandardError=inherit
    Restart=always
-   User=pi
+   User=sherlock
 
    [Install]
    WantedBy=multi-user.target

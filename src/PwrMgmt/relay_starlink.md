@@ -14,7 +14,7 @@ This document outlines how to control a relay connected to a Raspberry Pi for ma
 ### Key Components
 
 1. **Logging Setup**: 
-   - Logs are stored at `/home/pi/Sherlock/data/PwrMgmt/relay_starlink.log`.
+   - Logs are stored at `data/PwrMgmt/relay_starlink.log` under the Sherlock repo checkout.
    - Log entries include timestamps and messages.
 
 2. **GPIO Setup**:
@@ -49,7 +49,7 @@ sudo apt-get install python3 python3-rpi.gpio python3-schedule
 You can run the script directly from the terminal with:
 
 ```bash
-python3 /home/pi/Sherlock/src/PwrMgmt/relay_starlink.py
+python3 /home/sherlock/sherlock/src/PwrMgmt/relay_starlink.py
 ```
 
 ### Setting Up as a Service
@@ -74,12 +74,12 @@ To run the script as a service, follow these steps:
    After=multi-user.target
 
    [Service]
-   ExecStart=/usr/bin/python3 /home/pi/Sherlock/src/PwrMgmt/relay_starlink.py
-   WorkingDirectory=/home/pi/Sherlock/src/PwrMgmt
+   ExecStart=/usr/bin/python3 /home/sherlock/sherlock/src/PwrMgmt/relay_starlink.py
+   WorkingDirectory=/home/sherlock/sherlock/src/PwrMgmt
    StandardOutput=inherit
    StandardError=inherit
    Restart=always
-   User=pi
+   User=sherlock
 
    [Install]
    WantedBy=multi-user.target
@@ -106,4 +106,3 @@ To run the script as a service, follow these steps:
 ## Conclusion
 
 This script effectively manages a relay for Starlink control based on a set schedule while logging its operations. Running it as a service ensures that it operates in the background, starting automatically with your Raspberry Pi.
-

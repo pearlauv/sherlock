@@ -3,6 +3,10 @@ import glob
 import time
 import csv
 from datetime import datetime, timedelta
+from pathlib import Path
+
+REPO_ROOT = Path(__file__).resolve().parents[2]
+TEMPERATURE_FILE = REPO_ROOT / 'data' / 'Thermal' / 'temperature_readings.csv'
 
 # Load 1-Wire kernel modules
 os.system('modprobe w1-gpio')
@@ -20,21 +24,23 @@ def read_temp_raw(device_file):
     return lines
 
 def read_temp(device_file):
-    lines = read_temp_raw(device_file)
-    while lines[0].strip()[-3:] != 'YES':
-        time.sleep(0.2)
+    # Doesn't let one bad sensor block the whole logging loop forever
+    for _ in range(5):
         lines = read_temp_raw(device_file)
-    equals_pos = lines[1].find('t=')
-    if equals_pos != -1:
-        temp_string = lines[1][equals_pos + 2:]
-        temp_c = float(temp_string) / 1000.0
-        return temp_c
+        if lines[0].strip()[-3:] == 'YES':
+            equals_pos = lines[1].find('t=')
+            if equals_pos != -1:
+                temp_string = lines[1][equals_pos + 2:]
+                temp_c = float(temp_string) / 1000.0
+                return temp_c
+        time.sleep(0.2)
+
+    return None
 
 def write_to_csv(header, data):
-    file_path = '/home/pi/sherlock/data/Thermal/temperature_readings.csv'
-    with open(file_path, mode='a', newline='') as file:
+    with open(TEMPERATURE_FILE, mode='a', newline='') as file:
         writer = csv.writer(file)
-        if header and not os.path.getsize(file_path):
+        if header and not os.path.getsize(TEMPERATURE_FILE):
             writer.writerow(header)
         if data is not None:
             writer.writerow(data)
@@ -47,7 +53,7 @@ device_serials = [os.path.basename(device_folder) for device_folder in device_fo
 csv_header = ['Timestamp'] + device_serials
 
 # Write header to CSV if file doesn't exist
-if not os.path.isfile('/home/pi/sherlock/data/Thermal/temperature_readings.csv'):
+if not os.path.isfile(TEMPERATURE_FILE):
     write_to_csv(csv_header, None)
 
 try:
@@ -73,7 +79,7 @@ try:
         # Write data to CSV file
         write_to_csv(None, temperatures)
 
-        # Calculate time until the next 15-minute mark
+        # Wait 15 minutes from the current reading
         next_time = (current_datetime + timedelta(minutes=15)).replace(second=0, microsecond=0)
         sleep_duration = (next_time - datetime.now()).total_seconds()
 

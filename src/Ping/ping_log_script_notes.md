@@ -6,7 +6,7 @@ This shell script is designed to continuously ping a set of predefined hosts and
 ## Script Breakdown
 
 ### Variables
-- **LOGFILE**: This variable specifies the path to the CSV file where the ping results will be logged. In this case, it's set to `/home/pi/Sherlock/data/Ping/ping_log.csv`.
+- **LOGFILE**: This variable specifies the path to the CSV file where the ping results will be logged. It is resolved from the Sherlock repo checkout as `data/Ping/ping_log.csv`.
   
 - **HOST1 to HOST5**: These variables represent different IP addresses of the hosts being pinged:
   - **HOST1**: `8.8.8.8` (Google's public DNS server)

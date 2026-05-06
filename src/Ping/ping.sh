@@ -1,5 +1,7 @@
 #!/bin/bash
-LOGFILE="/home/pi/Sherlock/data/Ping/ping_log.csv"
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+REPO_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
+LOGFILE="$REPO_ROOT/data/Ping/ping_log.csv"
 HOST1="8.8.8.8"
 HOST2="10.49.0.1"
 HOST3="10.49.0.2"
