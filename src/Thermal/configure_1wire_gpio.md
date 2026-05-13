@@ -1,39 +1,66 @@
-# Open raspi-config to enable the 1-Wire interface
-sudo raspi-config
+# Sherlock 1-Wire Thermal Sensors
 
-# Navigate through the menu:
-# - Select "Interface Options"
-# - Choose "1-Wire"
-# - Enable the 1-Wire interface
-# - Finish and reboot the Raspberry Pi when prompted
+Sherlock uses DS18B20-style 1-Wire temperature sensors. All sensors share one
+data wire on BCM GPIO13. The Raspberry Pi boot config must contain:
 
-# After rebooting, open the config.txt file for editing
-sudo nano /boot/firmware/config.txt
+```ini
+dtoverlay=w1-gpio,gpiopin=13
+```
 
-# Inside the nano editor, add the following line to the end of the file
-dtoverlay=w1-gpio,gpiopin=22
-# Save and exit the editor:
-# - Press Ctrl+X to exit
-# - Press Y to confirm saving changes
-# - Press Enter to save the file
+The rigging image build configures this in Ansible. On a live Pi, verify it with:
 
-# Reboot the Raspberry Pi to apply the changes
-sudo reboot
+```bash
+grep -nE '^(enable_uart|dtoverlay=w1)' /boot/firmware/config.txt
+```
 
-# After rebooting, check if the 1-Wire devices are detected
-# List the contents of the /sys/bus/w1/devices/ directory
-ls /sys/bus/w1/devices/
+After boot, detected sensors appear under:
 
-# Example output might include directories like:
-# 28-000005e2fdc3
-# 28-000005e2fdc4
+```bash
+/sys/bus/w1/devices/
+```
 
-# To verify the sensor data, check the contents of one of the device files
-# Replace 28-000005e2fdc3 with your actual device ID
-cat /sys/bus/w1/devices/28-000005e2fdc3/w1_slave
+Valid DS18B20 device IDs start with `28-`:
 
-# Example output might include lines like:
-# 6b 01 4b 46 7f ff 0c 10 8b : crc=8b YES
-# 6b 01 4b 46 7f ff 0c 10 8b t=22375
+```bash
+find /sys/bus/w1/devices -maxdepth 1 -mindepth 1 -name '28-*' -printf '%f\n' | sort
+```
 
-# The t=22375 part represents the temperature in thousandths of a degree Celsius (22.375°C)
+The current Sherlock mapping in `brain_temp.py` is:
+
+| Location | Serial |
+| --- | --- |
+| H20 | missing |
+| Outside Top | `28-0000006a8601` |
+| Outside Back | `28-00000082ff57` |
+| Inner Middle | missing |
+| Inner Top | `28-00000082f49d` |
+| Inner Bottom | `28-0000006a25dc` |
+
+Raspberry Pi OS exposes a direct milli-Celsius temperature file for each sensor:
+
+```bash
+cat /sys/bus/w1/devices/28-0000006a8601/temperature
+```
+
+For example, `21437` means `21.437 C`.
+
+The older `w1_slave` file is still useful for manual diagnostics because it
+includes CRC status:
+
+```bash
+cat /sys/bus/w1/devices/28-0000006a8601/w1_slave
+```
+
+A valid reading looks like:
+
+```text
+6b 01 4b 46 7f ff 0c 10 8b : crc=8b YES
+6b 01 4b 46 7f ff 0c 10 8b t=22375
+```
+
+The `brain_temp.py` logger reads the direct `temperature` file and writes stable
+physical-location columns to:
+
+```text
+data/Thermal/temperature_readings_by_location.csv
+```
