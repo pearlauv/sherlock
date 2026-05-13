@@ -29,12 +29,12 @@ The current Sherlock mapping in `brain_temp.py` is:
 
 | Location | Serial |
 | --- | --- |
-| H20 | missing |
+| H20 | `28-000000722d76` |
 | Outside Top | `28-0000006a8601` |
 | Outside Back | `28-00000082ff57` |
-| Inner Middle | missing |
-| Inner Top | `28-00000082f49d` |
-| Inner Bottom | `28-0000006a25dc` |
+| Inner Middle | `28-0000007c961f` - right back connection presently |
+| Inner Top | `28-00000082f49d` - middle back connection presently |
+| Inner Bottom | `28-0000006a25dc` - left back connection presently |
 
 Raspberry Pi OS exposes a direct milli-Celsius temperature file for each sensor:
 

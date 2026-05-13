@@ -15,10 +15,10 @@ TEMPERATURE_FILE = REPO_ROOT / 'data' / 'Thermal' / 'temperature_readings_by_loc
 # Serial numbers are the Linux 1-Wire device IDs under /sys/bus/w1/devices.
 # Leave a serial as None until that physical location is identified.
 EXPECTED_SENSORS = [
-    {'key': 'h20', 'label': 'H20', 'serial': None},
+    {'key': 'h20', 'label': 'H20', 'serial': '28-000000722d76'},
     {'key': 'outside_top', 'label': 'Outside Top', 'serial': '28-0000006a8601'},
     {'key': 'outside_back', 'label': 'Outside Back', 'serial': '28-00000082ff57'},
-    {'key': 'inner_middle', 'label': 'Inner Middle', 'serial': None},
+    {'key': 'inner_middle', 'label': 'Inner Middle', 'serial': '28-0000007c961f'},
     {'key': 'inner_top', 'label': 'Inner Top', 'serial': '28-00000082f49d'},
     {'key': 'inner_bottom', 'label': 'Inner Bottom', 'serial': '28-0000006a25dc'},
 ]
