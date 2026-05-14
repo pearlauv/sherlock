@@ -5,6 +5,8 @@ import logging
 from datetime import datetime
 from pathlib import Path
 
+from relay_hat import relay_pin_for_load
+
 REPO_ROOT = Path(__file__).resolve().parents[2]
 
 # Set up logging
@@ -18,8 +20,8 @@ logging.basicConfig(
 # Set the GPIO mode to BCM
 GPIO.setmode(GPIO.BCM)
 
-# Define the GPIO pin connected to the relay
-RELAY_PIN = 25
+# Resolve CH2 to the BCM GPIO used by the Keyestudio relay HAT.
+RELAY_PIN = relay_pin_for_load('STARLINK')
 
 # Setup the GPIO pin as an output
 GPIO.setup(RELAY_PIN, GPIO.OUT)

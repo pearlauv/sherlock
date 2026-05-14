@@ -19,7 +19,9 @@ This document outlines how to control a relay connected to a Raspberry Pi using 
 
 2. **GPIO Setup**:
    - The GPIO mode is set to BCM.
-   - This relay is connected to GPIO pin 27, configured as an output.
+   - The Keyestudio relay HAT uses BCM GPIO4, GPIO22, GPIO6, and GPIO26
+     for relay channels 1-4.
+   - Lights are wired to relay channel 4, which maps to BCM GPIO26.
 
 3. **Relay Control Functions**:
    - `turn_on()`: Activates the relay and logs the action.
@@ -50,6 +52,13 @@ You can run the script directly from the terminal with:
 
 ```bash
 python3 /home/sherlock/sherlock/src/PwrMgmt/relay_lights.py
+```
+
+To manually switch the lights relay without starting the scheduler:
+
+```bash
+python3 /home/sherlock/sherlock/src/PwrMgmt/relay_control.py lights on
+python3 /home/sherlock/sherlock/src/PwrMgmt/relay_control.py lights off
 ```
 
 ### Setting Up as a Service
