@@ -43,7 +43,7 @@ Make sure you have Python and the necessary libraries installed:
 
 ```bash
 sudo apt-get update
-sudo apt-get install python3 python3-rpi.gpio python3-schedule
+sudo apt-get install python3 python3-rpi.gpio python3-schedule gpiod
 ```
 
 ### Running the Script
@@ -60,6 +60,10 @@ To manually switch the Starlink relay without starting the scheduler:
 python3 /home/sherlock/sherlock/src/PwrMgmt/relay_control.py starlink on
 python3 /home/sherlock/sherlock/src/PwrMgmt/relay_control.py starlink off
 ```
+
+The manual control helper uses `gpioset` to keep the relay GPIO held after the
+command exits. Running either command again for the same load replaces the
+previous holder process.
 
 ### Setting Up as a Service
 
