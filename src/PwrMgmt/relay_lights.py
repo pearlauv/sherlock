@@ -1,11 +1,10 @@
-import RPi.GPIO as GPIO
 import schedule
 import time
 import logging
 from datetime import datetime
 from pathlib import Path
 
-from relay_hat import relay_pin_for_load
+from relay_control import set_relay
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
 
@@ -17,26 +16,13 @@ logging.basicConfig(
     datefmt='%Y-%m-%d %H:%M:%S'
 )
 
-# Set the GPIO mode to BCM
-GPIO.setmode(GPIO.BCM)
-
-# Resolve CH4 to the BCM GPIO used by the Keyestudio relay HAT.
-RELAY_PIN = relay_pin_for_load('LIGHTS')
-
-# Setup the GPIO pin as an output
-GPIO.setup(RELAY_PIN, GPIO.OUT)
-
 def turn_on():
-    GPIO.output(RELAY_PIN, GPIO.HIGH)
+    set_relay('LIGHTS', 'on')
     logging.info("Light Relay turned ON")
 
 def turn_off():
-    GPIO.output(RELAY_PIN, GPIO.LOW)
+    set_relay('LIGHTS', 'off')
     logging.info("Light Relay turned OFF")
-
-def cleanup():
-    GPIO.cleanup()
-    logging.info("GPIO cleanup complete")
 
 # Without this, startup within the 'on' window wouldn't guarantee lights on
 def set_initial_state():
@@ -64,4 +50,4 @@ except Exception as e:
     logging.error(f"An error occurred: {str(e)}")
 
 finally:
-    cleanup()
+    logging.info("Light Relay control script stopped.")

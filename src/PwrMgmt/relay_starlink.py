@@ -1,11 +1,10 @@
-import RPi.GPIO as GPIO
 import schedule
 import time
 import logging
 from datetime import datetime
 from pathlib import Path
 
-from relay_hat import relay_pin_for_load
+from relay_control import set_relay
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
 
@@ -17,26 +16,13 @@ logging.basicConfig(
     datefmt='%Y-%m-%d %H:%M:%S'
 )
 
-# Set the GPIO mode to BCM
-GPIO.setmode(GPIO.BCM)
-
-# Resolve CH2 to the BCM GPIO used by the Keyestudio relay HAT.
-RELAY_PIN = relay_pin_for_load('STARLINK')
-
-# Setup the GPIO pin as an output
-GPIO.setup(RELAY_PIN, GPIO.OUT)
-
 def turn_on():
-    GPIO.output(RELAY_PIN, GPIO.HIGH)
+    set_relay('STARLINK', 'on')
     logging.info("Starlink Relay turned ON")
 
 def turn_off():
-    GPIO.output(RELAY_PIN, GPIO.LOW)
+    set_relay('STARLINK', 'off')
     logging.info("Starlink Relay turned OFF")
-
-def cleanup():
-    GPIO.cleanup()
-    logging.info("GPIO cleanup complete")
 
 # Without this, startup within window wouldn't guarantee starlink turns on
 def set_initial_state():
@@ -73,4 +59,4 @@ except Exception as e:
     logging.error(f"An error occurred: {str(e)}")
 
 finally:
-    cleanup()
+    logging.info("Starlink Relay control script stopped.")

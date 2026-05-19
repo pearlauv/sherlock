@@ -6,7 +6,7 @@ This document outlines how to control a relay connected to a Raspberry Pi for ma
 
 ### Libraries Used
 
-- **RPi.GPIO**: For controlling GPIO pins.
+- **gpiod/gpioset**: For holding relay GPIO lines after control commands return.
 - **schedule**: For scheduling tasks.
 - **time**: For time-related functions.
 - **logging**: For logging events to a file.
@@ -18,22 +18,22 @@ This document outlines how to control a relay connected to a Raspberry Pi for ma
    - Log entries include timestamps and messages.
 
 2. **GPIO Setup**:
-   - The GPIO mode is set to BCM.
    - The Keyestudio relay HAT uses BCM GPIO4, GPIO22, GPIO6, and GPIO26
      for relay channels 1-4.
    - Starlink is wired to relay channel 2, which maps to BCM GPIO22.
+   - Relay states are applied through `relay_control.py`, which uses daemonized
+     `gpioset` holder processes.
 
 3. **Relay Control Functions**:
    - `turn_on()`: Activates the relay and logs the action.
    - `turn_off()`: Deactivates the relay and logs the action.
-   - `cleanup()`: Cleans up GPIO settings and logs the cleanup.
 
 4. **Scheduling**:
    - The relay turns on at 10:00 AM and 4:00 PM, and turns off at 10:30 AM and 4:30 PM daily using the `schedule` library.
 
 5. **Main Loop**:
    - A while loop runs indefinitely, executing scheduled tasks every second.
-   - Exceptions are logged, and cleanup is performed on exit.
+   - Exceptions are logged.
 
 ## How to Execute the Script
 
@@ -43,7 +43,7 @@ Make sure you have Python and the necessary libraries installed:
 
 ```bash
 sudo apt-get update
-sudo apt-get install python3 python3-rpi.gpio python3-schedule gpiod
+sudo apt-get install python3 python3-schedule gpiod
 ```
 
 ### Running the Script
@@ -61,9 +61,9 @@ python3 /home/sherlock/sherlock/src/PwrMgmt/relay_control.py starlink on
 python3 /home/sherlock/sherlock/src/PwrMgmt/relay_control.py starlink off
 ```
 
-The manual control helper uses `gpioset` to keep the relay GPIO held after the
-command exits. Running either command again for the same load replaces the
-previous holder process.
+Manual and scheduled control both use `gpioset` to keep the relay GPIO held
+after a control action completes. Running either command again for the same load
+replaces the previous holder process.
 
 ### Setting Up as a Service
 

@@ -153,15 +153,21 @@ def parse_args():
     return parser.parse_args()
 
 
-def main():
-    args = parse_args()
-    load = args.load.upper()
+def set_relay(load_name, state):
+    load = load_name.upper()
     channel = relay_channel_for_load(load)
     pin = relay_pin_for_load(load)
 
     consumer = holder_consumer(load)
     stop_existing_holder(load, consumer)
-    start_holder(load, consumer, pin, args.state)
+    start_holder(load, consumer, pin, state)
+
+    return load, channel, pin
+
+
+def main():
+    args = parse_args()
+    load, channel, pin = set_relay(args.load, args.state)
 
     print(f'{load} {args.state.upper()} via relay CH{channel} / GPIO{pin}')
 
